@@ -7,15 +7,16 @@ export default function Header() {
   const { lang, setLang, t } = useLanguage();
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 relative z-20">
+    <header className="flex items-center justify-between px-6 py-3 relative z-20 bg-white/60 backdrop-blur-sm border-b border-white/40">
       {/* Logo */}
       <div className="flex items-center gap-3">
         <Image
-          src="/logo.svg"
+          src="/Logooo.png"
           alt="Nagorik Bhumi Logo"
           width={52}
           height={52}
           priority
+          style={{ objectFit: 'contain' }}
         />
         <div>
           <div className="text-brand font-bold text-lg leading-tight">{t.brandName}</div>
