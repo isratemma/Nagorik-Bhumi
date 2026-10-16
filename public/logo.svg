@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Document / land deed -->
+  <rect x="38" y="8" width="44" height="54" rx="5" fill="none" stroke="#1a6b3c" stroke-width="3.5"/>
+  <path d="M70 8 L82 20" stroke="#1a6b3c" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="70" y="8" width="12" height="12" rx="2" fill="#e8f5ee" stroke="#1a6b3c" stroke-width="2"/>
+  <!-- Bangladesh map silhouette inside doc -->
+  <path d="M55 22 C54 21 53 22 53 23 C52 24 53 25 54 26 C54 27 53 28 54 29 C55 30 57 29 57 28 C58 27 58 26 57 25 C57 24 56 23 55 22Z" fill="#1a6b3c" opacity="0.7"/>
+  <!-- Lines inside doc -->
+  <line x1="46" y1="36" x2="74" y2="36" stroke="#1a6b3c" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="46" y1="43" x2="70" y2="43" stroke="#1a6b3c" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="46" y1="50" x2="65" y2="50" stroke="#1a6b3c" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Left leaf -->
+  <path d="M28 58 C20 48 22 36 32 34 C30 46 36 54 28 58Z" fill="#5cb85c"/>
+  <path d="M28 58 L32 34" stroke="#3a8a3a" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Rolling green fields (bottom half) -->
+  <ellipse cx="60" cy="90" rx="52" ry="24" fill="#3a8a3a"/>
+  <path d="M8 88 Q30 72 60 78 Q90 84 112 72 L112 114 L8 114 Z" fill="#2d7a2d"/>
+  <path d="M8 96 Q35 82 60 86 Q85 90 112 80 L112 114 L8 114 Z" fill="#1a6b3c"/>
+
+  <!-- House -->
+  <polygon points="72,80 80,72 88,80" fill="#e8f5ee"/>
+  <rect x="74" y="80" width="12" height="9" fill="#e8f5ee"/>
+  <rect x="78" y="84" width="4" height="5" fill="#1a6b3c"/>
+
+  <!-- Right trees -->
+  <ellipse cx="94" cy="76" rx="4" ry="6" fill="#5cb85c"/>
+  <rect x="93" y="80" width="2" height="5" fill="#3a8a3a"/>
+  <ellipse cx="100" cy="79" rx="3" ry="4.5" fill="#3a8a3a"/>
+  <rect x="99" y="82" width="2" height="4" fill="#2d7a2d"/>
+</svg>

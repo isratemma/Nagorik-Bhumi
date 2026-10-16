@@ -3,15 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import AuthLayout from '@/components/AuthLayout';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function LoginPage() {
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [form, setForm] = useState({ nid: '', password: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: connect to auth API
     console.log('Login submitted', form);
   };
 
@@ -22,23 +23,17 @@ export default function LoginPage() {
         <div className="flex flex-col items-center mb-6">
           <div className="w-16 h-16 rounded-full bg-brand-light border-2 border-brand/20 flex items-center justify-center mb-4">
             <svg className="w-8 h-8 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
-          <p className="text-gray-500 text-sm mt-1">Sign in to manage your land records</p>
+          <h1 className="text-2xl font-bold text-gray-800">{t.welcomeBack}</h1>
+          <p className="text-gray-500 text-sm mt-1">{t.loginSubtitle}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* NID Number */}
+          {/* NID */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              National ID (NID) Number
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">{t.nidLabel}</label>
             <div className="relative">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -48,7 +43,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 inputMode="numeric"
-                placeholder="Enter your 10 or 17-digit NID number"
+                placeholder={t.nidPlaceholder}
                 value={form.nid}
                 onChange={(e) => setForm({ ...form, nid: e.target.value })}
                 className="input-field pl-10"
@@ -59,9 +54,7 @@ export default function LoginPage() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Password
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">{t.passwordLabel}</label>
             <div className="relative">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -70,18 +63,15 @@ export default function LoginPage() {
               </div>
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password"
+                placeholder={t.passwordPlaceholder}
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="input-field pl-10 pr-10"
                 required
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
+              <button type="button" onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
+                aria-label={showPassword ? 'Hide password' : 'Show password'}>
                 {showPassword ? (
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
@@ -96,28 +86,21 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Remember me + Forgot password */}
+          {/* Remember + Forgot */}
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-2 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-brand accent-brand cursor-pointer"
-              />
-              <span className="text-sm text-gray-600">Remember me</span>
+              <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 accent-brand cursor-pointer" />
+              <span className="text-sm text-gray-600">{t.rememberMe}</span>
             </label>
-            <Link
-              href="/forgot-password"
-              className="text-sm text-brand hover:text-brand-dark font-medium transition-colors"
-            >
-              Forgot password?
+            <Link href="/forgot-password" className="text-sm text-brand hover:text-brand-dark font-medium transition-colors">
+              {t.forgotPassword}
             </Link>
           </div>
 
-          {/* Submit button */}
+          {/* Submit */}
           <button type="submit" className="btn-primary text-base font-semibold mt-2">
-            Login Securely
+            {t.loginBtn}
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
@@ -127,15 +110,15 @@ export default function LoginPage() {
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
           <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-xs text-gray-400 font-medium">OR</span>
+          <span className="text-xs text-gray-400 font-medium">{t.orDivider}</span>
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
         {/* Register link */}
         <p className="text-center text-sm text-gray-600">
-          New to Nagorik Bhumi?{' '}
+          {t.newUser}{' '}
           <Link href="/register" className="text-brand font-semibold hover:text-brand-dark transition-colors">
-            Create an account
+            {t.createAccount}
           </Link>
         </p>
 
@@ -144,7 +127,7 @@ export default function LoginPage() {
           <svg className="w-4 h-4 text-brand/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
-          Your information is protected
+          {t.infoProtected}
         </div>
       </div>
     </AuthLayout>

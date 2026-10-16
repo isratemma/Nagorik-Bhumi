@@ -2,9 +2,9 @@ import Header from './Header';
 
 export default function AuthLayout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #d4eddc 0%, #e8f5ee 40%, #c8dfc8 100%)' }}>
+    <div className="min-h-screen flex flex-col relative" style={{ background: 'linear-gradient(135deg, #d4eddc 0%, #e8f5ee 40%, #c8dfc8 100%)' }}>
       {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {/* Birds */}
         <svg className="absolute top-16 left-1/4 opacity-20 w-24" viewBox="0 0 100 30" fill="none">
           <path d="M0 15 Q10 5 20 15 Q30 5 40 15" stroke="#1a6b3c" strokeWidth="1.5" fill="none"/>
@@ -29,7 +29,7 @@ export default function AuthLayout({ children }) {
 
       <Header />
 
-      <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+      <main className="flex-1 flex items-start justify-center px-4 py-8 relative z-10">
         {children}
       </main>
     </div>

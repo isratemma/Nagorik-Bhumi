@@ -1,29 +1,47 @@
+'use client';
+
+import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function Header() {
+  const { lang, setLang, t } = useLanguage();
+
   return (
-    <header className="flex items-center justify-between px-8 py-4">
+    <header className="flex items-center justify-between px-6 py-3 relative z-20">
       {/* Logo */}
       <div className="flex items-center gap-3">
-        {/* Leaf icon */}
-        <div className="w-10 h-10 bg-brand rounded-full flex items-center justify-center shadow-md">
-          <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M20 32C20 32 8 24 8 14C8 9.58 11.58 6 16 6C18.12 6 20 6.84 21.42 8.2C22.84 6.84 24.72 6 27 6C31.42 6 35 9.58 35 14C35 24 20 32 20 32Z"
-              fill="white"
-            />
-            <path d="M20 32V12" stroke="#1a6b3c" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </div>
+        <Image
+          src="/logo.svg"
+          alt="Nagorik Bhumi Logo"
+          width={52}
+          height={52}
+          priority
+        />
         <div>
-          <div className="text-brand font-bold text-lg leading-tight">Nagorik Bhumi</div>
-          <div className="text-gray-500 text-xs">Land Services for a Better Bangladesh</div>
+          <div className="text-brand font-bold text-lg leading-tight">{t.brandName}</div>
+          <div className="text-gray-500 text-xs">{t.tagline}</div>
         </div>
       </div>
 
       {/* Language switcher */}
-      <nav className="flex items-center gap-2 text-sm text-gray-600">
-        <button className="hover:text-brand transition-colors font-medium">বাংলা</button>
+      <nav className="flex items-center gap-2 text-sm">
+        <button
+          onClick={() => setLang('bn')}
+          className={`font-medium transition-colors px-1 ${
+            lang === 'bn' ? 'text-brand' : 'text-gray-500 hover:text-brand'
+          }`}
+        >
+          {t.langBn}
+        </button>
         <span className="text-gray-300">|</span>
-        <button className="hover:text-brand transition-colors font-medium text-brand">English</button>
+        <button
+          onClick={() => setLang('en')}
+          className={`font-medium transition-colors px-1 ${
+            lang === 'en' ? 'text-brand' : 'text-gray-500 hover:text-brand'
+          }`}
+        >
+          {t.langEn}
+        </button>
       </nav>
     </header>
   );
