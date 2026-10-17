@@ -59,6 +59,7 @@ const landRecordSchema = new mongoose.Schema(
     verifiedAt: Date,
     rejectionReason: String,
     notes: String,
+    photoUrl: String,
   },
   {
     timestamps: true,

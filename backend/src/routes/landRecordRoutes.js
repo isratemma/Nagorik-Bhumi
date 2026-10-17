@@ -10,13 +10,14 @@ const {
   deleteLandRecord,
 } = require('../controllers/landRecordController');
 
-router.use(protect);
+// Public read routes (no token needed)
+router.get('/',    getLandRecords);
+router.get('/:id', getLandRecordById);
 
-router.get('/',         getLandRecords);
-router.post('/',        createLandRecord);
-router.get('/:id',      getLandRecordById);
-router.put('/:id',      updateLandRecord);
-router.patch('/:id/status', authorize('admin', 'officer'), updateStatus);
-router.delete('/:id',   authorize('admin'), deleteLandRecord);
+// Protected write routes
+router.post('/',            protect, createLandRecord);
+router.put('/:id',          protect, updateLandRecord);
+router.patch('/:id/status', protect, authorize('admin', 'officer'), updateStatus);
+router.delete('/:id',       protect, authorize('admin'), deleteLandRecord);
 
 module.exports = router;

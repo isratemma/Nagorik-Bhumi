@@ -8,7 +8,7 @@ exports.getApplications = async (req, res, next) => {
     const { page = 1, limit = 20, status, type, search } = req.query;
     const query = {};
 
-    if (req.user.role === 'citizen') query.applicant = req.user._id;
+    if (req.user && req.user.role === 'citizen') query.applicant = req.user._id;
     if (status) query.status = status;
     if (type)   query.type   = type;
     if (search) {

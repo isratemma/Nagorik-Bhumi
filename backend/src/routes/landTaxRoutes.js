@@ -8,11 +8,12 @@ const {
   payLandTax,
 } = require('../controllers/landTaxController');
 
-router.use(protect);
+// Public read
+router.get('/',    getLandTaxes);
+router.get('/:id', getLandTaxById);
 
-router.get('/',           getLandTaxes);
-router.post('/',          authorize('admin'), createLandTax);
-router.get('/:id',        getLandTaxById);
-router.patch('/:id/pay',  payLandTax);
+// Protected write
+router.post('/',        protect, authorize('admin'), createLandTax);
+router.patch('/:id/pay',protect, payLandTax);
 
 module.exports = router;

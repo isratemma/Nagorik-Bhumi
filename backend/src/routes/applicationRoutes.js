@@ -9,12 +9,13 @@ const {
   deleteApplication,
 } = require('../controllers/applicationController');
 
-router.use(protect);
+// Public read
+router.get('/',    getApplications);
+router.get('/:id', getApplicationById);
 
-router.get('/',       getApplications);
-router.post('/',      createApplication);
-router.get('/:id',    getApplicationById);
-router.patch('/:id/review', authorize('admin', 'officer'), reviewApplication);
-router.delete('/:id', authorize('admin'), deleteApplication);
+// Protected write
+router.post('/',            protect, createApplication);
+router.patch('/:id/review', protect, authorize('admin', 'officer'), reviewApplication);
+router.delete('/:id',       protect, authorize('admin'), deleteApplication);
 
 module.exports = router;

@@ -8,7 +8,7 @@ exports.getLandTaxes = async (req, res, next) => {
     const { page = 1, limit = 20, status, year } = req.query;
     const query = {};
 
-    if (req.user.role === 'citizen') query.owner = req.user._id;
+    if (req.user && req.user.role === 'citizen') query.owner = req.user._id;
     if (status) query.status = status;
     if (year)   query.year   = Number(year);
 
