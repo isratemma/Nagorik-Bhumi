@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const records = [
   { title: 'Residential Land', location: 'Savar, Dhaka', size: '5.00 Katha', sqft: '3,600 sq ft', id: 'LN-00123', status: 'Verified', type: 'Residential', date: '12 Jan 2024', imgColor: '#4a9e4a' },
@@ -29,10 +30,11 @@ export default function LandRecordsPage() {
           <h1 className="text-xl font-bold text-gray-800">My Land Records</h1>
           <p className="text-sm text-gray-500 mt-0.5">Manage and view all your registered land properties</p>
         </div>
-        <button className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+        <Link href="/dashboard/land-records/new"
+          className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
           Add New Record
-        </button>
+        </Link>
       </div>
 
       {/* Filters */}
