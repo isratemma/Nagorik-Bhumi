@@ -50,42 +50,14 @@ const landRecords = [
 ];
 
 const services = [
-  {
-    label: 'My Applications',
-    desc: 'Track your submitted applications and status.',
-    icon: (
-      <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Land Tax',
-    desc: 'View and manage your land tax payments.',
-    icon: (
-      <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Inheritance',
-    desc: 'Handle inheritance and succession matters.',
-    icon: (
-      <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Documents',
-    desc: 'Access and manage your documents.',
-    icon: (
-      <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-      </svg>
-    ),
-  },
+  { label: 'My Applications',  desc: 'Track your submitted applications and status.', href: '/dashboard/applications',
+    icon: <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> },
+  { label: 'Land Tax',          desc: 'View and manage your land tax payments.',       href: '/dashboard/land-tax',
+    icon: <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg> },
+  { label: 'Inheritance',       desc: 'Handle inheritance and succession matters.',    href: '/dashboard/inheritance',
+    icon: <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg> },
+  { label: 'Documents',         desc: 'Access and manage your documents.',             href: '/dashboard/documents',
+    icon: <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg> },
 ];
 
 export default function DashboardContent() {
@@ -115,7 +87,7 @@ export default function DashboardContent() {
         </div>
 
         {/* ── Stats Row ── */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {stats.map((s, i) => (
             <div key={i} className="bg-white rounded-xl border border-gray-100 p-4 flex items-center gap-3 hover:shadow-sm transition-shadow cursor-pointer">
               <div className="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center flex-shrink-0">
@@ -149,7 +121,7 @@ export default function DashboardContent() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
             {landRecords.map((r, i) => (
               <div key={i} className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
                 {/* Land image placeholder */}
@@ -191,12 +163,13 @@ export default function DashboardContent() {
                     <span className="font-medium text-gray-700">{r.size}</span> (approx. {r.sqft})
                   </p>
                   <p className="text-xs text-gray-400 mt-0.5">ID: <span className="text-brand font-medium">{r.id}</span></p>
-                  <button className="mt-2 w-full text-xs text-brand font-medium border border-brand/20 rounded-lg py-1.5 hover:bg-brand-light transition-colors flex items-center justify-center gap-1">
+                  <Link href={`/dashboard/land-records`}
+                    className="mt-2 w-full text-xs text-brand font-medium border border-brand/20 rounded-lg py-1.5 hover:bg-brand-light transition-colors flex items-center justify-center gap-1">
                     View Details
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -204,9 +177,10 @@ export default function DashboardContent() {
         </div>
 
         {/* ── Services Grid ── */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {services.map((s, i) => (
-            <div key={i} className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-sm transition-shadow cursor-pointer group">
+            <Link key={i} href={s.href}
+              className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-sm transition-shadow group block">
               <div className="w-12 h-12 rounded-xl bg-brand-light flex items-center justify-center mb-3 group-hover:bg-brand/10 transition-colors">
                 {s.icon}
               </div>
@@ -217,7 +191,7 @@ export default function DashboardContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

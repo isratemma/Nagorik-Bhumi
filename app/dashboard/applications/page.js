@@ -78,7 +78,15 @@ export default function ApplicationsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {filtered.map((a, i) => (
+        {filtered.length === 0 ? (
+              <tr><td colSpan={7} className="px-4 py-12 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>
+                  <p className="text-sm text-gray-400 font-medium">No applications found</p>
+                  <p className="text-xs text-gray-300">Try changing the filter above</p>
+                </div>
+              </td></tr>
+            ) : filtered.map((a, i) => (
               <tr key={i} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 font-medium text-brand text-xs">{a.id}</td>
                 <td className="px-4 py-3 text-gray-700 text-xs">{a.type}</td>

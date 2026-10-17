@@ -51,8 +51,16 @@ export default function LandRecordsPage() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-3 gap-4">
-        {filtered.map((r, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {filtered.length === 0 ? (
+          <div className="col-span-3 flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            </div>
+            <h3 className="font-semibold text-gray-600 mb-1">No records found</h3>
+            <p className="text-sm text-gray-400">Try adjusting your search or filters.</p>
+          </div>
+        ) : filtered.map((r, i) => (
           <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
             <div className="relative h-36" style={{ background: `linear-gradient(135deg, ${r.imgColor}cc, ${r.imgColor}88)` }}>
               <svg className="w-full h-full" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice">

@@ -1,5 +1,6 @@
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { Toaster } from 'sonner';
 
 export const metadata = {
   title: 'Nagorik Bhumi – Land Services for a Better Bangladesh',
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
       <body style={{ fontFamily: "'Inter', 'Hind Siliguri', sans-serif" }}>
         <LanguageProvider>
           {children}
+          <Toaster position="top-right" richColors closeButton />
         </LanguageProvider>
       </body>
     </html>
