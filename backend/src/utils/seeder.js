@@ -39,28 +39,28 @@ const divisions   = ['Dhaka','Dhaka','Dhaka','Chattogram','Sylhet','Rajshahi','K
 const districts   = ['Savar','Gazipur','Bashundhara','Comilla','Sylhet','Rajshahi','Khulna','Tangail','Narayanganj','Mymensingh','Barisal','Rangpur','Mirpur','Motijheel','Cox\'s Bazar','Habiganj','Bogra','Jessore','Manikganj','Narsingdi'];
 const sizes       = [5.00,12.00,8.00,10.00,3.50,15.00,6.00,20.00,4.50,8.50,7.00,11.00,2.50,9.00,14.00,6.50,18.00,3.00,7.50,13.00];
 const plotNums    = ['1234','5678','9012','3456','7890','4321','8765','2109','6543','0987','1357','2468','3579','4680','5791','6802','7913','8024','9135','0246'];
-// picsum.photos stable IDs — green landscapes, fields, nature, land plots
+// Real Bangladesh land/agricultural photos from Wikimedia Commons (CC licensed)
 const photoUrls = [
-  'https://picsum.photos/id/338/640/400',   // green rice field
-  'https://picsum.photos/id/347/640/400',   // countryside farmland
-  'https://picsum.photos/id/429/640/400',   // aerial green land
-  'https://picsum.photos/id/440/640/400',   // green meadow field
-  'https://picsum.photos/id/442/640/400',   // open land landscape
-  'https://picsum.photos/id/541/640/400',   // rural farmland
-  'https://picsum.photos/id/547/640/400',   // green valley land
-  'https://picsum.photos/id/563/640/400',   // agricultural field
-  'https://picsum.photos/id/577/640/400',   // countryside land
-  'https://picsum.photos/id/643/640/400',   // land plot aerial
-  'https://picsum.photos/id/679/640/400',   // green field sunrise
-  'https://picsum.photos/id/733/640/400',   // farmland plot
-  'https://picsum.photos/id/775/640/400',   // rural landscape
-  'https://picsum.photos/id/815/640/400',   // paddy field style
-  'https://picsum.photos/id/830/640/400',   // land plot overview
-  'https://picsum.photos/id/909/640/400',   // green agricultural land
-  'https://picsum.photos/id/235/640/400',   // field landscape
-  'https://picsum.photos/id/541/640/400',   // farmland 2
-  'https://picsum.photos/id/338/640/400',   // green field 2
-  'https://picsum.photos/id/429/640/400',   // open land 2
+  'https://upload.wikimedia.org/wikipedia/commons/4/45/Agriculture_of_Bangladesh_11.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/2/24/Agriculture_of_Bangladesh_1.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/4/4f/Agriculture_of_Bangladesh_8.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/c/c9/Agriculture_in_Rural_Bangladesh.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/5/5e/Our_Bangladesh.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/b/b9/Plain_rice_field.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/b/b2/Agriculture_field.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/b/bd/Rice_Field.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/a/af/Green_paddy.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/6/6c/Green_into_the_green.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/4/44/Agriculture_of_Bangladesh_2.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/2/28/Agriculture_of_Bangladesh_3.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/e/e7/Agriculture_of_Bangladesh_4.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/e/e1/Agriculture_of_Bangladesh_5.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/1/11/Agriculture_of_Bangladesh_6.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/1/17/Agriculture_of_Bangladesh_7.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/5/5a/Agriculture_of_Bangladesh_9.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/b/bd/Agriculture_of_Bangladesh_10.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/4/45/Agriculture_of_Bangladesh_11.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/2/24/Agriculture_of_Bangladesh_1.jpg',
 ];
 
 // ─────────────────────────────────────────────────────────────
