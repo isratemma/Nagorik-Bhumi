@@ -13,8 +13,8 @@ const {
 // Public routes — no token needed (frontend not yet connected to auth)
 router.get('/',    getLandRecords);
 router.get('/:id', getLandRecordById);
-router.post('/',   createLandRecord);   // public for now — protect after auth is wired
-router.put('/:id', createLandRecord);   // public for now
+router.post('/',   createLandRecord);
+router.put('/:id', updateLandRecord);
 
 // Admin/officer only
 router.patch('/:id/status', protect, authorize('admin', 'officer'), updateStatus);

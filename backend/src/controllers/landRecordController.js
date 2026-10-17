@@ -90,7 +90,8 @@ exports.updateLandRecord = async (req, res, next) => {
     let record = await LandRecord.findById(req.params.id);
     if (!record) return res.status(404).json({ success: false, message: 'Land record not found' });
 
-    if (req.user.role === 'citizen' && record.owner.toString() !== req.user._id.toString()) {
+    // Only check ownership if user is logged in and is a citizen
+    if (req.user && req.user.role === 'citizen' && record.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
