@@ -8,37 +8,47 @@ export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#f9fafb', fontFamily: "'Inter', 'Hind Siliguri', sans-serif" }}>
+    <div style={{
+      display: 'flex',
+      height: '100vh',
+      overflow: 'hidden',
+      background: '#f9fafb',
+      fontFamily: "'Inter', 'Hind Siliguri', sans-serif",
+      position: 'relative',
+    }}>
 
-      {/* Mobile backdrop */}
+      {/* Mobile backdrop — only rendered when open, never blocks desktop */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 40 }}
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(0,0,0,0.4)',
+            zIndex: 40,
+          }}
         />
       )}
 
-      {/* Sidebar wrapper — always visible on desktop via min-width trick */}
-      <div style={{
-        flexShrink: 0,
-        position: 'relative',
-        zIndex: 50,
-        display: 'flex',
-      }}>
-        <div style={{
-          transform: sidebarOpen ? 'translateX(0)' : undefined,
-          transition: 'transform 300ms ease-in-out',
-        }}>
-          <Sidebar onClose={() => setSidebarOpen(false)} />
-        </div>
+      {/* Sidebar — always part of flex row, never overlaps content on desktop */}
+      <div style={{ flexShrink: 0, zIndex: 50, position: 'relative' }}>
+        <Sidebar />
       </div>
 
-      {/* Main content */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
+      {/* Main area */}
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        minWidth: 0,
+        position: 'relative',
+        zIndex: 1,
+      }}>
         <Topbar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
-        <main style={{ flex: 1, overflow: 'hidden', display: 'flex', minHeight: 0 }}>
+        {/* children scroll independently */}
+        <div style={{ flex: 1, overflow: 'auto', display: 'flex', minHeight: 0 }}>
           {children}
-        </main>
+        </div>
       </div>
     </div>
   );
