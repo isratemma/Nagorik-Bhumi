@@ -124,20 +124,23 @@ export default function DashboardContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
             {landRecords.map((r, i) => (
               <div key={i} className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
-                {/* Land image placeholder */}
-                <div className="relative h-28" style={{ background: `linear-gradient(135deg, ${r.imgColor}cc, ${r.imgColor}88)` }}>
-                  {/* field SVG */}
-                  <svg className="w-full h-full" viewBox="0 0 160 112" preserveAspectRatio="xMidYMid slice">
-                    <rect width="160" height="112" fill={r.imgColor} opacity="0.7"/>
-                    <ellipse cx="80" cy="90" rx="90" ry="40" fill={r.imgColor} opacity="0.5"/>
-                    <path d="M0 70 Q40 50 80 60 Q120 70 160 55 L160 112 L0 112Z" fill="#2d6b35" opacity="0.6"/>
-                    <path d="M0 85 Q40 70 80 78 Q120 86 160 74 L160 112 L0 112Z" fill="#1a5a20" opacity="0.7"/>
-                    {/* boundary dashes */}
-                    <rect x="10" y="10" width="140" height="85" rx="4" fill="none" stroke="white" strokeWidth="1.5" strokeDasharray="6 4" opacity="0.7"/>
-                    {/* tree dots */}
-                    <ellipse cx="25" cy="35" rx="8" ry="12" fill="#1a4a15" opacity="0.8"/>
-                    <ellipse cx="135" cy="32" rx="7" ry="11" fill="#1a4a15" opacity="0.8"/>
-                  </svg>
+                {/* Land photo */}
+                <div className="relative h-28 overflow-hidden bg-gray-100">
+                  <img
+                    src={r.photoUrl || `https://picsum.photos/seed/${r.id}/400/280`}
+                    alt={r.title}
+                    className="w-full h-full object-cover"
+                    onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}
+                  />
+                  {/* fallback SVG if image fails */}
+                  <div className="absolute inset-0 hidden items-center justify-center" style={{ background: `linear-gradient(135deg, ${r.imgColor}cc, ${r.imgColor}88)` }}>
+                    <svg className="w-full h-full" viewBox="0 0 160 112" preserveAspectRatio="xMidYMid slice">
+                      <rect width="160" height="112" fill={r.imgColor} opacity="0.7"/>
+                      <path d="M0 70 Q40 50 80 60 Q120 70 160 55 L160 112 L0 112Z" fill="#2d6b35" opacity="0.6"/>
+                      <path d="M0 85 Q40 70 80 78 Q120 86 160 74 L160 112 L0 112Z" fill="#1a5a20" opacity="0.7"/>
+                      <rect x="10" y="10" width="140" height="85" rx="4" fill="none" stroke="white" strokeWidth="1.5" strokeDasharray="6 4" opacity="0.7"/>
+                    </svg>
+                  </div>
                   {/* Status badge */}
                   <span className={`absolute top-2 left-2 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full ${r.statusColor}`}>
                     {r.status === 'Verified' && '✓ '}{r.status}

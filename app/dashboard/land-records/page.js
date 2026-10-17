@@ -62,15 +62,21 @@ export default function LandRecordsPage() {
           </div>
         ) : filtered.map((r, i) => (
           <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-            <div className="relative h-36" style={{ background: `linear-gradient(135deg, ${r.imgColor}cc, ${r.imgColor}88)` }}>
-              <svg className="w-full h-full" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice">
-                <rect width="200" height="140" fill={r.imgColor} opacity="0.7"/>
-                <path d="M0 90 Q50 65 100 80 Q150 95 200 72 L200 140 L0 140Z" fill="#2d6b35" opacity="0.6"/>
-                <path d="M0 108 Q50 88 100 98 Q150 108 200 90 L200 140 L0 140Z" fill="#1a5a20" opacity="0.7"/>
-                <rect x="12" y="12" width="176" height="106" rx="5" fill="none" stroke="white" strokeWidth="1.5" strokeDasharray="8 5" opacity="0.7"/>
-                <ellipse cx="30" cy="45" rx="10" ry="15" fill="#1a4a15" opacity="0.8"/>
-                <ellipse cx="170" cy="42" rx="9" ry="14" fill="#1a4a15" opacity="0.8"/>
-              </svg>
+            <div className="relative h-36 overflow-hidden bg-gray-100">
+              <img
+                src={r.photoUrl || `https://picsum.photos/seed/${r.id}/400/280`}
+                alt={r.title}
+                className="w-full h-full object-cover"
+                onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }}
+              />
+              <div className="hidden w-full h-full" style={{ background: `linear-gradient(135deg, ${r.imgColor}cc, ${r.imgColor}88)` }}>
+                <svg className="w-full h-full" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice">
+                  <rect width="200" height="140" fill={r.imgColor} opacity="0.7"/>
+                  <path d="M0 90 Q50 65 100 80 Q150 95 200 72 L200 140 L0 140Z" fill="#2d6b35" opacity="0.6"/>
+                  <path d="M0 108 Q50 88 100 98 Q150 108 200 90 L200 140 L0 140Z" fill="#1a5a20" opacity="0.7"/>
+                </svg>
+              </div>
+              <span className={`absolute top-2 left-2 text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusColor[r.status]}`}>{r.status === 'Verified' ? '✓ ' : ''}{r.status}</span>
               <span className={`absolute top-2 left-2 text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusColor[r.status]}`}>{r.status === 'Verified' ? '✓ ' : ''}{r.status}</span>
               <button className="absolute top-2 right-2 text-white/80 hover:text-white">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>

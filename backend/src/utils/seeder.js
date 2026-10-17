@@ -39,27 +39,28 @@ const divisions   = ['Dhaka','Dhaka','Dhaka','Chattogram','Sylhet','Rajshahi','K
 const districts   = ['Savar','Gazipur','Bashundhara','Comilla','Sylhet','Rajshahi','Khulna','Tangail','Narayanganj','Mymensingh','Barisal','Rangpur','Mirpur','Motijheel','Cox\'s Bazar','Habiganj','Bogra','Jessore','Manikganj','Narsingdi'];
 const sizes       = [5.00,12.00,8.00,10.00,3.50,15.00,6.00,20.00,4.50,8.50,7.00,11.00,2.50,9.00,14.00,6.50,18.00,3.00,7.50,13.00];
 const plotNums    = ['1234','5678','9012','3456','7890','4321','8765','2109','6543','0987','1357','2468','3579','4680','5791','6802','7913','8024','9135','0246'];
-const photoUrls   = [
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400',
-  'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400',
-  'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400',
-  'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
-  'https://images.unsplash.com/photo-1503594384566-461fe158e797?w=400',
-  'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400',
-  'https://images.unsplash.com/photo-1592595896551-12b371d546d3?w=400',
-  'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400',
-  'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
-  'https://images.unsplash.com/photo-1582560475093-ba66accbc095?w=400',
-  'https://images.unsplash.com/photo-1448630360428-65456885c650?w=400',
-  'https://images.unsplash.com/photo-1574359411659-15573a27fd0c?w=400',
-  'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400',
-  'https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?w=400',
-  'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
-  'https://images.unsplash.com/photo-1567974526117-1fdb3c5df85b?w=400',
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400',
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400',
-  'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400',
+// picsum.photos stable IDs — green landscapes, fields, nature, land plots
+const photoUrls = [
+  'https://picsum.photos/id/338/640/400',   // green rice field
+  'https://picsum.photos/id/347/640/400',   // countryside farmland
+  'https://picsum.photos/id/429/640/400',   // aerial green land
+  'https://picsum.photos/id/440/640/400',   // green meadow field
+  'https://picsum.photos/id/442/640/400',   // open land landscape
+  'https://picsum.photos/id/541/640/400',   // rural farmland
+  'https://picsum.photos/id/547/640/400',   // green valley land
+  'https://picsum.photos/id/563/640/400',   // agricultural field
+  'https://picsum.photos/id/577/640/400',   // countryside land
+  'https://picsum.photos/id/643/640/400',   // land plot aerial
+  'https://picsum.photos/id/679/640/400',   // green field sunrise
+  'https://picsum.photos/id/733/640/400',   // farmland plot
+  'https://picsum.photos/id/775/640/400',   // rural landscape
+  'https://picsum.photos/id/815/640/400',   // paddy field style
+  'https://picsum.photos/id/830/640/400',   // land plot overview
+  'https://picsum.photos/id/909/640/400',   // green agricultural land
+  'https://picsum.photos/id/235/640/400',   // field landscape
+  'https://picsum.photos/id/541/640/400',   // farmland 2
+  'https://picsum.photos/id/338/640/400',   // green field 2
+  'https://picsum.photos/id/429/640/400',   // open land 2
 ];
 
 // ─────────────────────────────────────────────────────────────
