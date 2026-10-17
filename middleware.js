@@ -1,32 +1,34 @@
 import { NextResponse } from 'next/server';
 
-// Routes that require authentication
-const protectedPrefixes = ['/dashboard', '/admin'];
-// Routes only for unauthenticated users
-const authRoutes = ['/login', '/register', '/forgot-password'];
+// NOTE: Auth middleware is disabled until a real backend is connected.
+// Re-enable by uncommenting the block below once API auth is in place.
 
 export function middleware(request) {
-  const { pathname } = request.nextUrl;
+  return NextResponse.next();
 
-  // Read auth cookie (set on login — placeholder for real JWT/session)
+  /* --- Enable this when backend auth is ready ---
+
+  const { pathname } = request.nextUrl;
   const token = request.cookies.get('nb_token')?.value;
 
-  const isProtected = protectedPrefixes.some(p => pathname.startsWith(p));
-  const isAuthRoute = authRoutes.some(p => pathname.startsWith(p));
+  const protectedPrefixes = ['/dashboard', '/admin'];
+  const authRoutes = ['/login', '/register', '/forgot-password'];
 
-  // Redirect unauthenticated users away from protected routes
+  const isProtected = protectedPrefixes.some(p => pathname.startsWith(p));
+  const isAuthRoute  = authRoutes.some(p => pathname.startsWith(p));
+
   if (isProtected && !token) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect already-logged-in users away from auth pages
   if (isAuthRoute && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return NextResponse.next();
+  --- end of protected block --- */
 }
 
 export const config = {

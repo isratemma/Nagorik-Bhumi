@@ -145,6 +145,18 @@ export default function LoginPage() {
         <div className="mt-4 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2 text-xs text-blue-600 text-center">
           Demo: NID <strong>1234567890</strong> · Password <strong>password</strong>
         </div>
+
+        {/* Quick nav links for development */}
+        <div className="mt-3 flex gap-2">
+          <Link href="/dashboard"
+            className="flex-1 text-center text-xs font-semibold bg-brand-light text-brand border border-brand/20 py-2 rounded-lg hover:bg-brand hover:text-white transition-colors">
+            → Dashboard
+          </Link>
+          <Link href="/admin"
+            className="flex-1 text-center text-xs font-semibold bg-gray-50 text-gray-600 border border-gray-200 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            → Admin Panel
+          </Link>
+        </div>
       </div>
     </AuthLayout>
   );
