@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function SettingsPage() {
   const [profile, setProfile] = useState({ name: 'Israt Jahan Ema', email: 'israt@email.com', phone: '01712345678', nid: '19901234567890', address: 'House 12, Road 5, Savar, Dhaka' });
@@ -43,7 +44,7 @@ export default function SettingsPage() {
             <div>
               <p className="font-semibold text-gray-800">{profile.name}</p>
               <p className="text-xs text-gray-500">Landowner · NID verified</p>
-              <button className="text-xs text-brand font-medium mt-1 hover:underline">Change Photo</button>
+              <button className="text-xs text-brand font-medium mt-1 hover:underline" onClick={() => toast.info('Photo upload coming soon!')}>Change Photo</button>
             </div>
           </div>
 
@@ -132,8 +133,10 @@ export default function SettingsPage() {
           </h2>
           <p className="text-xs text-gray-500 mb-4">These actions are irreversible. Please proceed with caution.</p>
           <div className="flex gap-3">
-            <button className="text-sm font-medium text-red-600 border border-red-200 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">Deactivate Account</button>
-            <button className="text-sm font-medium text-red-600 border border-red-200 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">Delete Account</button>
+            <button onClick={() => toast.warning('Account deactivation requires contacting support at support@nagorikbhumi.gov.bd')}
+              className="text-sm font-medium text-red-600 border border-red-200 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">Deactivate Account</button>
+            <button onClick={() => toast.error('Account deletion is permanent. Contact support to proceed.')}
+              className="text-sm font-medium text-red-600 border border-red-200 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">Delete Account</button>
           </div>
         </div>
 
