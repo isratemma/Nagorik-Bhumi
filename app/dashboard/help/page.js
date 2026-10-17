@@ -23,7 +23,7 @@ export default function HelpPage() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+    <div className="p-6 bg-gray-50 min-h-full">
       <div className="mb-6">
         <h1 className="text-xl font-bold text-gray-800">Help & Support</h1>
         <p className="text-sm text-gray-500 mt-0.5">Find answers or contact our support team</p>

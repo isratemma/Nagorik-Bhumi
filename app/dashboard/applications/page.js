@@ -20,7 +20,7 @@ export default function ApplicationsPage() {
   const filtered = applications.filter(a => filter === 'All' || a.status === filter);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+    <div className="p-6 bg-gray-50 min-h-full">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800">My Applications</h1>

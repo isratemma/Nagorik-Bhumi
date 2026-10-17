@@ -51,7 +51,7 @@ export default function DashboardContent() {
   }, []);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gray-50">
+    <div className="bg-gray-50 min-h-full w-full">
       <div className="p-5 space-y-5">
 
         {/* ── Hero Banner ── */}

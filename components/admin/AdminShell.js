@@ -8,30 +8,23 @@ export default function AdminShell({ children }) {
     <div style={{
       display: 'flex',
       height: '100vh',
-      overflow: 'hidden',
-      background: '#f9fafb',
       fontFamily: "'Inter', 'Hind Siliguri', sans-serif",
+      background: '#f9fafb',
     }}>
-      {/* Sidebar — always visible, part of flex row */}
-      <div style={{ flexShrink: 0, position: 'relative', zIndex: 10 }}>
+
+      {/* Sidebar — fixed width, no z-index */}
+      <div style={{ width: '224px', flexShrink: 0, overflowY: 'auto' }}>
         <AdminSidebar />
       </div>
 
-      {/* Main area */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        minWidth: 0,
-        position: 'relative',
-        zIndex: 1,
-      }}>
+      {/* Right side */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
         <AdminTopbar />
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
           {children}
         </div>
       </div>
+
     </div>
   );
 }
