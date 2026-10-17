@@ -60,10 +60,21 @@ exports.getLandRecordById = async (req, res, next) => {
 
 // @desc    Create land record
 // @route   POST /api/land-records
-// @access  Private
+// @access  Public (for now — will require auth once frontend login is wired)
 exports.createLandRecord = async (req, res, next) => {
   try {
-    req.body.owner = req.user._id;
+    // Use logged-in user or a default demo user ID from DB
+    if (req.user) {
+      req.body.owner = req.user._id;
+    } else {
+      // Find the first user in DB to use as default owner
+      const User = require('../models/User');
+      const defaultUser = await User.findOne();
+      if (!defaultUser) {
+        return res.status(400).json({ success: false, message: 'No users found. Please run the seeder first.' });
+      }
+      req.body.owner = defaultUser._id;
+    }
     const record = await LandRecord.create(req.body);
     res.status(201).json({ success: true, record });
   } catch (err) {

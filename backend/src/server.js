@@ -32,9 +32,17 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// ── CORS ─────────────────────────────────────────────────────
+// ── CORS — allow all localhost ports during development ──────
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, Postman) or any localhost port
+    if (!origin || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) {
+      return callback(null, true);
+    }
+    const allowed = (process.env.FRONTEND_URL || '').split(',').map(s => s.trim());
+    if (allowed.includes(origin)) return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 

@@ -31,17 +31,17 @@ export default function DashboardContent() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch land records from API
-        const res = await fetch(`${API}/land-records?limit=4`, {
-          headers: { 'Content-Type': 'application/json' },
-        });
+        const res = await fetch('http://localhost:5000/api/land-records?limit=4');
         if (res.ok) {
           const data = await res.json();
           setRecords(data.records || []);
-          setStats(s => ({ ...s, records: data.total || data.records?.length || 0 }));
+          setStats(s => ({ ...s, records: data.total || 0 }));
+        } else {
+          console.error('API error:', res.status);
+          setRecords([]);
         }
-      } catch {
-        // API not available — show empty state
+      } catch (err) {
+        console.error('Fetch failed:', err.message);
         setRecords([]);
       } finally {
         setLoading(false);
