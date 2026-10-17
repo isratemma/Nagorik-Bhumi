@@ -59,8 +59,10 @@ export default function Sidebar() {
   return (
     <aside className="w-56 min-h-screen bg-brand flex flex-col flex-shrink-0">
       {/* Logo */}
-      <div className="flex items-center gap-2 px-4 py-4 border-b border-white/10">
-        <Image src="/Logooo.png" alt="Logo" width={38} height={38} style={{ objectFit: 'contain' }} />
+      <div className="flex items-center gap-3 px-4 py-4 border-b border-white/10">
+        <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden p-0.5">
+          <Image src="/Logooo.png" alt="Logo" width={48} height={48} style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
+        </div>
         <div>
           <div className="text-white font-bold text-sm leading-tight">Nagorik Bhumi</div>
           <div className="text-white/60 text-[10px]">Land Services for a Better Bangladesh</div>
