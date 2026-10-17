@@ -5,6 +5,14 @@ module.exports = {
     "./components/**/*.{js,jsx}",
     "./pages/**/*.{js,jsx}",
   ],
+  safelist: [
+    'translate-x-0',
+    '-translate-x-full',
+    'md:translate-x-0',
+    'md:relative',
+    'fixed',
+    'relative',
+  ],
   theme: {
     extend: {
       colors: {
