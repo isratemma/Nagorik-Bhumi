@@ -105,7 +105,7 @@ export default function HelpPage() {
             )}
             <form onSubmit={handleSend} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1.5">Subject <span className="text-red-500">*</span></label>
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">{t.subject} <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   value={ticket.subject}
@@ -128,7 +128,7 @@ export default function HelpPage() {
                 className="w-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-60">
                 {sending
                   ? <><svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>Sending…</>
-                  : <><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>Send Ticket</>}
+                  : <><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>{t.sendTicket}</>}
               </button>
             </form>
           </div>

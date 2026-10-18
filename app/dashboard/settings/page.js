@@ -226,7 +226,7 @@ export default function SettingsPage() {
             className="mt-4 bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-60">
             {loading === 'profile'
               ? <><svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>Saving…</>
-              : 'Save Profile'}
+              : t.saveProfile}
           </button>
         </div>
 
@@ -282,7 +282,7 @@ export default function SettingsPage() {
             className="mt-4 bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-60">
             {loading === 'password'
               ? <><svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>Updating…</>
-              : 'Update Password'}
+              : t.updatePassword}
           </button>
         </div>
 

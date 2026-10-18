@@ -65,7 +65,7 @@ export default function InheritancePage() {
                 <button
                   onClick={() => setSelected(selected === i ? null : i)}
                   className="text-xs text-brand font-medium border border-brand/20 px-3 py-1.5 rounded-lg hover:bg-brand-light transition-colors">
-                  {selected === i ? 'Hide' : 'View Case'}
+                  {selected === i ? t.hide : t.viewCase}
                 </button>
               </div>
             </div>

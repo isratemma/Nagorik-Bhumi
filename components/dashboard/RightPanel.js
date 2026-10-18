@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 const notifications = [
   { type:'success', text:'Your application for land mutation has been approved.', time:'2 hours ago' },
@@ -23,6 +24,7 @@ const quickActions = [
 ];
 
 export default function RightPanel() {
+  const { t } = useLanguage();
   return (
     <aside className="w-full flex flex-col gap-4">
       {/* Notifications */}
@@ -32,7 +34,7 @@ export default function RightPanel() {
             <svg className="w-4 h-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
             Notifications
           </div>
-          <Link href="/dashboard/notifications" className="text-xs text-brand font-medium hover:underline">View All</Link>
+          <Link href="/dashboard/notifications" className="text-xs text-brand font-medium hover:underline">{t.viewAll}</Link>
         </div>
         <div className="space-y-3">
           {notifications.map((n,i) => (
@@ -82,8 +84,7 @@ export default function RightPanel() {
         <p className="text-xs text-gray-500 mb-3 leading-snug">Our support team is here to assist you with any queries or issues.</p>
         <Link href="/dashboard/help"
           className="w-full bg-brand hover:bg-brand-dark text-white text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 transition-colors">
-          Contact Support
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          Contact Support          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </Link>
       </div>
     </aside>

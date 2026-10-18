@@ -27,8 +27,7 @@ export default function ApplicationsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800">{t.myApplications}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t.appSubtitle}</p>
-        </div>
+          <p className="text-sm text-gray-500 mt-0.5">{t.appSubtitle}</p>        </div>
         <Link href="/dashboard/applications/new"
           className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
@@ -38,10 +37,10 @@ export default function ApplicationsPage() {
 
       <div className="grid grid-cols-4 gap-4 mb-6">
         {[
-          { label:'Total',    value: applications.length,                                      color:'text-gray-800', bg:'bg-gray-50' },
-          { label:'Approved', value: applications.filter(a=>a.status==='Approved').length,     color:'text-green-600',bg:'bg-green-50' },
-          { label:'Pending',  value: applications.filter(a=>a.status==='Pending').length,      color:'text-yellow-600',bg:'bg-yellow-50' },
-          { label:'Rejected', value: applications.filter(a=>a.status==='Rejected').length,     color:'text-red-600',  bg:'bg-red-50' },
+          { label: t.total,    value: applications.length,                                      color:'text-gray-800', bg:'bg-gray-50' },
+          { label: t.approved, value: applications.filter(a=>a.status==='Approved').length,     color:'text-green-600',bg:'bg-green-50' },
+          { label: t.pending,  value: applications.filter(a=>a.status==='Pending').length,      color:'text-yellow-600',bg:'bg-yellow-50' },
+          { label: t.rejected, value: applications.filter(a=>a.status==='Rejected').length,     color:'text-red-600',  bg:'bg-red-50' },
         ].map((s,i)=>(
           <div key={i} className={`${s.bg} rounded-xl border border-gray-100 p-4`}>
             <p className="text-xs text-gray-500">{s.label}</p>
@@ -62,15 +61,15 @@ export default function ApplicationsPage() {
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-100">
-            <tr>{['Application ID','Type','Land','Submitted','Last Updated','Status','Action'].map(h=>(
+            <tr>{[t.myApplications.slice(0,3)+' ID', t.appType, t.land, t.submitted, t.lastUpdated, t.status, t.action].map(h=>(
               <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-500">{h}</th>
             ))}</tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
             {filtered.length === 0 ? (
               <tr><td colSpan={7} className="px-4 py-12 text-center">
-                <p className="text-sm text-gray-400">No applications found</p>
-                <Link href="/dashboard/applications/new" className="text-brand text-xs font-medium hover:underline mt-1 inline-block">Submit one now →</Link>
+                <p className="text-sm text-gray-400">{t.noRecordsFound}</p>
+                <Link href="/dashboard/applications/new" className="text-brand text-xs font-medium hover:underline mt-1 inline-block">{t.submitNow}</Link>
               </td></tr>
             ) : filtered.map((a,i)=>(
               <tr key={i} className="hover:bg-gray-50 transition-colors">
@@ -109,10 +108,10 @@ export default function ApplicationsPage() {
             </div>
             <div className="space-y-3">
               {[
-                { label:'Land',         value: selected.land },
-                { label:'Submitted',    value: selected.submitted },
-                { label:'Last Updated', value: selected.updated },
-                { label:'Status',       value: selected.status },
+                { label: t.land,        value: selected.land },
+                { label: t.submitted,   value: selected.submitted },
+                { label: t.lastUpdated, value: selected.updated },
+                { label: t.status,      value: selected.status },
               ].map((row,i) => (
                 <div key={i} className="flex justify-between py-2 border-b border-gray-50 last:border-0">
                   <span className="text-sm text-gray-500">{row.label}</span>

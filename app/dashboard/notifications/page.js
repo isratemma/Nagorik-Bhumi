@@ -33,7 +33,7 @@ export default function NotificationsPage() {
   const markAllRead = () => setNotifications(n => n.map(x => ({ ...x, read: true })));
   const markRead = (i) => setNotifications(n => n.map((x, idx) => idx === i ? { ...x, read: true } : x));
 
-  const filtered = notifications.filter(n => filter === 'All' ? true : filter === 'Unread' ? !n.read : n.read);
+  const filtered = notifications.filter(n => filter === 'All' ? true : filter === t.unread ? !n.read : n.read);
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
@@ -50,10 +50,14 @@ export default function NotificationsPage() {
       </div>
 
       <div className="flex gap-2 mb-4">
-        {['All','Unread','Read'].map(f => (
-          <button key={f} onClick={() => setFilter(f)}
-            className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors border ${filter === f ? 'bg-brand text-white border-brand' : 'bg-white text-gray-600 border-gray-200 hover:border-brand hover:text-brand'}`}>
-            {f} {f === 'Unread' && unreadCount > 0 ? `(${unreadCount})` : ''}
+        {[
+          { key:'all',    label: t.viewAll.replace('All','All').split(' ')[0] || 'All' },
+          { key:'unread', label: t.unread },
+          { key:'read',   label: t.read   },
+        ].map(({ key, label }) => (
+          <button key={key} onClick={() => setFilter(label)}
+            className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors border ${filter===label?'bg-brand text-white border-brand':'bg-white text-gray-600 border-gray-200 hover:border-brand hover:text-brand'}`}>
+            {label} {key==='unread' && unreadCount>0 ? `(${unreadCount})` : ''}
           </button>
         ))}
       </div>
