@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
+    "dev:safe": "lsof -ti:5000 | xargs kill -9 2>/dev/null; nodemon src/server.js",
     "start": "node src/server.js",
     "seed": "node src/utils/seeder.js",
     "lint": "eslint src/**/*.js"

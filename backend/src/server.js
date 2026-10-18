@@ -90,8 +90,31 @@ const server = app.listen(PORT, () => {
   console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
 
+// Graceful shutdown — release port on exit
+const shutdown = (signal) => {
+  console.log(`\n${signal} received — shutting down gracefully`);
+  server.close(() => {
+    console.log('✅ Server closed');
+    process.exit(0);
+  });
+  // Force close after 5s
+  setTimeout(() => process.exit(1), 5000);
+};
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT',  () => shutdown('SIGINT'));
+
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error(`❌ Unhandled Rejection: ${err.message}`);
   server.close(() => process.exit(1));
+});
+
+// Handle port already in use
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use.`);
+    console.error(`   Run: lsof -ti:${PORT} | xargs kill -9`);
+    process.exit(1);
+  }
 });
