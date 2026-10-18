@@ -18,7 +18,7 @@ const searchLinks = [
 
 export default function Topbar({ onMenuToggle }) {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, lang, setLang } = useLanguage();
   const [search, setSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [showUser, setShowUser] = useState(false);
@@ -85,6 +85,21 @@ export default function Topbar({ onMenuToggle }) {
       </div>
 
       <div className="flex items-center gap-3 ml-auto">
+        {/* ── Language switcher ── */}
+        <div className="flex items-center gap-1 border border-gray-200 rounded-lg px-2 py-1 bg-gray-50">
+          <button
+            onClick={() => setLang('bn')}
+            className={`text-xs font-semibold px-2 py-0.5 rounded-md transition-colors ${lang === 'bn' ? 'bg-brand text-white' : 'text-gray-500 hover:text-brand'}`}>
+            বাংলা
+          </button>
+          <span className="text-gray-300 text-xs">|</span>
+          <button
+            onClick={() => setLang('en')}
+            className={`text-xs font-semibold px-2 py-0.5 rounded-md transition-colors ${lang === 'en' ? 'bg-brand text-white' : 'text-gray-500 hover:text-brand'}`}>
+            EN
+          </button>
+        </div>
+
         {/* Notification bell */}
         <div className="relative" ref={notifRef}>
           <button onClick={() => { setShowNotif(!showNotif); setShowUser(false); }}
