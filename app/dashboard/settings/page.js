@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 import { useUser } from '@/context/UserContext';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 
 // ── Toggle defined OUTSIDE component so it never remounts ──
 function Toggle({ checked, onChange }) {

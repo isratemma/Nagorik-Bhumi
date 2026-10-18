@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
+const API  = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+
 const statusBadgeBg = {
   Verified: 'bg-green-500',
   Pending:  'bg-yellow-400',
@@ -31,7 +33,7 @@ function LandRecordsList() {
   const fetchRecords = async () => {
     setLoading(true);
     try {
-      const res  = await fetch('http://localhost:5000/api/land-records?limit=50');
+      const res  = await fetch('${API}/land-records?limit=50');
       const data = await res.json();
       if (res.ok) setRecords(data.records || []);
     } catch {
@@ -45,7 +47,7 @@ function LandRecordsList() {
 
   const handleDelete = async (r) => {
     try {
-      const res  = await fetch(`http://localhost:5000/api/land-records/${r._id}`, { method:'DELETE' });
+      const res  = await fetch(`${API}/land-records/${r._id}`, { method:'DELETE' });
       const data = await res.json();
       if (res.ok) {
         toast.success(`"${r.title}" deleted`);

@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-const API = 'http://localhost:5000/api';
-const BASE = 'http://localhost:5000';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 const statusStyle = { Verified:'bg-green-100 text-green-700', Pending:'bg-yellow-100 text-yellow-700', Rejected:'bg-red-100 text-red-600' };
 const typeColor   = { Deed:'bg-blue-50 text-blue-600', Survey:'bg-purple-50 text-purple-600', Identity:'bg-orange-50 text-orange-500', Tax:'bg-brand-light text-brand', Inheritance:'bg-pink-50 text-pink-600' };
 

@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
+const API  = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+
 const divisions = ['Dhaka','Chattogram','Rajshahi','Khulna','Barishal','Sylhet','Rangpur','Mymensingh'];
 const labelCls  = 'block text-sm font-medium text-gray-700 mb-1.5';
 const inputCls  = (err) =>
@@ -75,12 +77,12 @@ export default function NewLandRecordPage() {
         fd.append('type', 'Deed');
         fd.append('name', `Photo – ${form.title}`);
         try {
-          const upRes = await fetch('http://localhost:5000/api/documents/upload', {
+          const upRes = await fetch('${API}/documents/upload', {
             method: 'POST', body: fd,
           });
           if (upRes.ok) {
             const upData = await upRes.json();
-            photoUrl = `http://localhost:5000${upData.document?.fileUrl || ''}`;
+            photoUrl = `${BASE}${upData.document?.fileUrl || ''}`;
           }
         } catch {
           // If upload fails, use a default Bangladesh photo
@@ -99,7 +101,7 @@ export default function NewLandRecordPage() {
         ...(photoUrl ? { photoUrl } : {}),
       };
 
-      const res = await fetch('http://localhost:5000/api/land-records', {
+      const res = await fetch('${API}/land-records', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload),

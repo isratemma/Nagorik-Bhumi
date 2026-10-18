@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 import { toast } from 'sonner';
 
+const API  = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+
 const inputCls = (err) =>
   `w-full pl-11 pr-4 py-3 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all bg-white ${err ? 'border-red-400' : 'border-gray-200'}`;
 
@@ -25,7 +27,7 @@ export default function AdminLoginPage() {
     if (!form.password.trim()) { setError('Password is required'); return; }
     setLoading(true);
     try {
-      const res  = await fetch('http://localhost:5000/api/auth/login', {
+      const res  = await fetch('${API}/auth/login', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ nid: form.nid, password: form.password }),

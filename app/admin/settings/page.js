@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 
 function Toggle({ checked, onChange }) {
   return (

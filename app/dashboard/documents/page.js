@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 
 const statusStyle = {
   'Verified':       'bg-green-100 text-green-700',

@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
+const API  = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+
 const divisions = ['Dhaka','Chattogram','Rajshahi','Khulna','Barishal','Sylhet','Rangpur','Mymensingh'];
 const labelCls  = 'block text-sm font-medium text-gray-700 mb-1.5';
 const inputCls  = (err) =>
@@ -33,7 +35,7 @@ function EditForm() {
     if (!id) { toast.error('No record ID provided'); router.push('/dashboard/land-records'); return; }
     async function load() {
       try {
-        const res  = await fetch(`http://localhost:5000/api/land-records/${id}`);
+        const res  = await fetch(`${API}/land-records/${id}`);
         const data = await res.json();
         if (!res.ok || !data.record) { toast.error('Record not found'); router.push('/dashboard/land-records'); return; }
         const r = data.record;
@@ -114,10 +116,10 @@ function EditForm() {
         fd.append('type', 'Deed');
         fd.append('name', `Photo – ${form.title}`);
         try {
-          const upRes = await fetch('http://localhost:5000/api/documents/upload', { method:'POST', body:fd });
+          const upRes = await fetch('${API}/documents/upload', { method:'POST', body:fd });
           if (upRes.ok) {
             const upData = await upRes.json();
-            photoUrl = `http://localhost:5000${upData.document?.fileUrl || ''}`;
+            photoUrl = `${BASE}${upData.document?.fileUrl || ''}`;
           }
         } catch {
           photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/45/Agriculture_of_Bangladesh_11.jpg';
@@ -135,7 +137,7 @@ function EditForm() {
         photoUrl,
       };
 
-      const res = await fetch(`http://localhost:5000/api/land-records/${id}`, {
+      const res = await fetch(`${API}/land-records/${id}`, {
         method:  'PUT',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload),

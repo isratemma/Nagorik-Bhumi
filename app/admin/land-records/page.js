@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 const statusStyle = { Verified:'bg-green-100 text-green-700', Pending:'bg-yellow-100 text-yellow-700', Rejected:'bg-red-100 text-red-600', Draft:'bg-gray-100 text-gray-600' };
 const typeColor   = { Residential:'bg-blue-50 text-blue-600', Agricultural:'bg-green-50 text-green-600', Commercial:'bg-orange-50 text-orange-500', Industrial:'bg-purple-50 text-purple-600' };
 

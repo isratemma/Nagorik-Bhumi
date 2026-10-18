@@ -9,6 +9,8 @@ import { toast } from 'sonner';
 
 import { useUser } from '@/context/UserContext';
 
+const API  = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
+
 export default function LoginPage() {
   const { t } = useLanguage();
   const router = useRouter();
@@ -35,7 +37,7 @@ export default function LoginPage() {
     setErrors({});
     setLoading(true);
     try {
-      const res  = await fetch('http://localhost:5000/api/auth/login', {
+      const res  = await fetch('${API}/auth/login', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ nid: form.nid, password: form.password }),

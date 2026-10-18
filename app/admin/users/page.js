@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 const statusStyle = { Active:'bg-green-100 text-green-700', Suspended:'bg-red-100 text-red-600', Inactive:'bg-gray-100 text-gray-500' };
 const roleStyle   = { citizen:'bg-blue-50 text-blue-600', officer:'bg-purple-50 text-purple-600', admin:'bg-orange-50 text-orange-600' };
 

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
-const API = 'http://localhost:5000/api';
+const API = process.env.NEXT_PUBLIC_API_URL  || 'http://localhost:5000/api';
 const statusStyle = { Unpaid:'bg-yellow-100 text-yellow-700', Paid:'bg-green-100 text-green-700', Overdue:'bg-red-100 text-red-600' };
 
 export default function AdminLandTaxPage() {
