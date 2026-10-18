@@ -17,7 +17,12 @@ export default function HelpPage() {
 
   const handleSend = (e) => {
     e.preventDefault();
+    if (!ticket.subject.trim() || !ticket.message.trim()) {
+      toast.error('Please fill in both subject and message.');
+      return;
+    }
     setSent(true);
+    toast.success('Ticket submitted! We\'ll respond within 24 hours.');
     setTicket({ subject: '', message: '' });
     setTimeout(() => setSent(false), 4000);
   };
@@ -33,13 +38,15 @@ export default function HelpPage() {
         {[
           { icon: '📞', label: 'Call Us', value: '16789', sub: 'Mon–Sat, 9am–6pm' },
           { icon: '✉️', label: 'Email', value: 'support@nagorikbhumi.gov.bd', sub: 'Response within 24 hrs' },
-          { icon: '💬', label: 'Live Chat', value: 'Start Chat', sub: 'Available now', action: true },
-        ].map((c, i) => (
+          { icon: '💬', label: 'Live Chat', value: 'Start Chat', sub: 'Available now', action: true },        ].map((c, i) => (
           <div key={i} className="bg-white border border-gray-100 rounded-xl p-5 flex items-center gap-4 hover:shadow-sm transition-shadow">
             <div className="w-12 h-12 bg-brand-light rounded-xl flex items-center justify-center text-2xl">{c.icon}</div>
             <div>
               <p className="text-xs text-gray-500">{c.label}</p>
-              <p className={`font-semibold text-sm mt-0.5 ${c.action ? 'text-brand cursor-pointer hover:underline' : 'text-gray-800'}`}>{c.value}</p>
+              <p className={`font-semibold text-sm mt-0.5 ${c.action ? 'text-brand cursor-pointer hover:underline' : 'text-gray-800'}`}
+               onClick={c.action ? () => window.open('mailto:support@nagorikbhumi.gov.bd?subject=Live Chat Request', '_blank') : undefined}>
+              {c.value}
+            </p>
               <p className="text-xs text-gray-400 mt-0.5">{c.sub}</p>
             </div>
           </div>

@@ -17,6 +17,7 @@ const statusIcon  = { Approved:'✓', Pending:'⏳', 'In Review':'🔍', Rejecte
 
 export default function ApplicationsPage() {
   const [filter, setFilter] = useState('All');
+  const [selected, setSelected] = useState(null); // for detail modal
   const filtered = applications.filter(a => filter === 'All' || a.status === filter);
 
   return (
@@ -82,7 +83,7 @@ export default function ApplicationsPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <button onClick={() => toast.info(`Viewing ${a.id} — ${a.type}`)}
+                  <button onClick={() => setSelected(a)}
                     className="text-xs text-brand font-medium hover:underline">View</button>
                 </td>
               </tr>
@@ -90,6 +91,42 @@ export default function ApplicationsPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Application Detail Modal */}
+      {selected && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
+          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md" onClick={e => e.stopPropagation()}>
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="font-bold text-gray-800 text-lg">{selected.type}</h2>
+                <p className="text-xs text-brand font-medium mt-0.5">{selected.id}</p>
+              </div>
+              <button onClick={() => setSelected(null)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div className="space-y-3">
+              {[
+                { label:'Land',         value: selected.land },
+                { label:'Submitted',    value: selected.submitted },
+                { label:'Last Updated', value: selected.updated },
+                { label:'Status',       value: selected.status },
+              ].map((row,i) => (
+                <div key={i} className="flex justify-between py-2 border-b border-gray-50 last:border-0">
+                  <span className="text-sm text-gray-500">{row.label}</span>
+                  <span className={`text-sm font-semibold ${row.label==='Status' ? (statusStyle[selected.status]?.includes('green')?'text-green-700':statusStyle[selected.status]?.includes('red')?'text-red-600':statusStyle[selected.status]?.includes('yellow')?'text-yellow-700':'text-blue-700') : 'text-gray-800'}`}>
+                    {statusIcon[selected.status] && row.label==='Status' ? `${statusIcon[selected.status]} ${row.value}` : row.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => setSelected(null)}
+              className="mt-5 w-full bg-brand hover:bg-brand-dark text-white font-semibold py-2.5 rounded-lg transition-colors">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

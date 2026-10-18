@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { toast } from 'sonner';
 
 const documents = [
@@ -30,16 +30,35 @@ export default function DocumentsPage() {
   const [search, setSearch]   = useState('');
   const [filter, setFilter]   = useState('All');
   const [dragging, setDragging] = useState(false);
+  const fileRef = useRef(null);
 
   const filtered = documents.filter(d =>
     (filter === 'All' || d.type === filter || d.status === filter) &&
     d.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleFileUpload = (file) => {
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { toast.error('File must be under 10 MB'); return; }
+    toast.success(`"${file.name}" uploaded successfully!`);
+  };
+
   const handleDrop = (e) => {
     e.preventDefault();
     setDragging(false);
-    toast.success('Document uploaded successfully!');
+    handleFileUpload(e.dataTransfer.files?.[0]);
+  };
+
+  const openDoc = (d) => {
+    window.open('https://www.w3.org/WAI/WCAG21/Techniques/pdf/sample.pdf', '_blank');
+  };
+
+  const downloadDoc = (d) => {
+    const a = document.createElement('a');
+    a.href = 'https://www.w3.org/WAI/WCAG21/Techniques/pdf/sample.pdf';
+    a.download = d.name;
+    a.click();
+    toast.success(`Downloading "${d.name}"…`);
   };
 
   return (
@@ -51,7 +70,7 @@ export default function DocumentsPage() {
           <p className="text-sm text-gray-500 mt-0.5">Access and manage all your land documents</p>
         </div>
         <button
-          onClick={() => toast.success('Document uploaded successfully!')}
+          onClick={() => fileRef.current?.click()}
           className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
           Upload Document
@@ -81,7 +100,7 @@ export default function DocumentsPage() {
         className={`border-2 border-dashed rounded-xl p-6 mb-6 text-center transition-all cursor-pointer
           ${dragging ? 'border-brand bg-brand-light/50' : 'border-gray-200 bg-white hover:border-brand/40 hover:bg-brand-light/20'}`}>
         <svg className="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-        <p className="text-sm text-gray-500 font-medium">Drag & drop files here, or <span className="text-brand cursor-pointer hover:underline">browse</span></p>
+        <p className="text-sm text-gray-500 font-medium">Drag & drop files here, or <span onClick={() => fileRef.current?.click()} className="text-brand cursor-pointer hover:underline">browse</span></p>
         <p className="text-xs text-gray-400 mt-1">Supported: PDF, JPG, PNG — max 10 MB</p>
       </div>
 
@@ -136,13 +155,13 @@ export default function DocumentsPage() {
 
             <div className="flex gap-2 mt-3">
               <button
-                onClick={() => toast.info(`Viewing ${d.name}`)}
+                onClick={() => openDoc(d)}
                 className="flex-1 text-xs text-brand font-medium border border-brand/20 rounded-lg py-1.5 hover:bg-brand-light transition-colors flex items-center justify-center gap-1">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/></svg>
                 View
               </button>
               <button
-                onClick={() => toast.success(`Downloading ${d.name}…`)}
+                onClick={() => downloadDoc(d)}
                 className="flex-1 text-xs text-gray-600 font-medium border border-gray-200 rounded-lg py-1.5 hover:bg-gray-50 transition-colors flex items-center justify-center gap-1">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                 Download
@@ -151,6 +170,9 @@ export default function DocumentsPage() {
           </div>
         ))}
       </div>
+      {/* Hidden file input */}
+      <input ref={fileRef} type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden"
+        onChange={e => handleFileUpload(e.target.files?.[0])}/>
     </div>
   );
 }

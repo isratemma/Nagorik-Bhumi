@@ -2,15 +2,41 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+const API = 'http://localhost:5000/api';
+
 export default function SettingsPage() {
   const [profile, setProfile] = useState({ name: 'Israt Jahan Ema', email: 'israt@email.com', phone: '01712345678', nid: '19901234567890', address: 'House 12, Road 5, Savar, Dhaka' });
   const [passwords, setPasswords] = useState({ current: '', newPass: '', confirm: '' });
   const [notifications, setNotifications] = useState({ email: true, sms: true, app: true, taxReminder: true, appStatus: true, newMessage: false });
   const [saved, setSaved] = useState('');
 
-  const save = (section) => {
-    setSaved(section);
-    setTimeout(() => setSaved(''), 3000);
+  const save = async (section) => {
+    try {
+      if (section === 'password') {
+        if (!passwords.current) { toast.error('Enter your current password'); return; }
+        if (passwords.newPass.length < 8) { toast.error('New password must be at least 8 characters'); return; }
+        if (passwords.newPass !== passwords.confirm) { toast.error('Passwords do not match'); return; }
+        const res = await fetch(`${API}/auth/change-password`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ currentPassword: passwords.current, newPassword: passwords.newPass }),
+        });
+        const data = await res.json();
+        if (res.ok) { toast.success('Password updated!'); setPasswords({ current:'', newPass:'', confirm:'' }); }
+        else toast.error(data.message || 'Failed to update password');
+        return;
+      }
+      if (section === 'profile') {
+        toast.success('Profile saved! (Connect auth to persist changes.)');
+      }
+      if (section === 'notifications') {
+        toast.success('Notification preferences saved!');
+      }
+      setSaved(section);
+      setTimeout(() => setSaved(''), 3000);
+    } catch {
+      toast.error('Could not connect to server');
+    }
   };
 
   const Toggle = ({ checked, onChange }) => (

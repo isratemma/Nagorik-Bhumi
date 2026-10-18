@@ -16,10 +16,10 @@ const iconMap = {
 };
 
 const quickActions = [
-  { label:'Add Land Record',   href:'/dashboard/land-records', icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg> },
-  { label:'Submit Application', href:'/dashboard/applications', icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> },
-  { label:'Pay Land Tax',       href:'/dashboard/land-tax',    icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> },
-  { label:'Upload Document',    href:'/dashboard/documents',   icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg> },
+  { label:'Add Land Record',    href:'/dashboard/land-records/new',  icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg> },
+  { label:'Submit Application', href:'/dashboard/applications/new',  icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> },
+  { label:'Pay Land Tax',       href:'/dashboard/land-tax',          icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> },
+  { label:'Upload Document',    href:'/dashboard/documents',         icon:<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg> },
 ];
 
 export default function RightPanel() {
@@ -36,13 +36,14 @@ export default function RightPanel() {
         </div>
         <div className="space-y-3">
           {notifications.map((n,i) => (
-            <div key={i} className="flex items-start gap-2 pb-3 border-b border-gray-50 last:border-0 last:pb-0">
+            <Link key={i} href="/dashboard/notifications"
+              className="flex items-start gap-2 pb-3 border-b border-gray-50 last:border-0 last:pb-0 hover:bg-gray-50 rounded-lg transition-colors -mx-1 px-1">
               {iconMap[n.type]}
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-gray-700 leading-snug">{n.text}</p>
                 <p className="text-[11px] text-gray-400 mt-0.5">{n.time}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
