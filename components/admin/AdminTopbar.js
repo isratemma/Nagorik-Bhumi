@@ -56,7 +56,7 @@ export default function AdminTopbar({ onMenuToggle }) {
             onClick={() => {
               localStorage.removeItem('nb_user');
               localStorage.removeItem('nb_token');
-              window.location.href = '/admin/login';
+              window.location.href = '/admin-login';
             }}
             className="p-2 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-lg transition-colors"
             title="Logout">

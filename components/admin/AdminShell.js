@@ -19,7 +19,7 @@ export default function AdminShell({ children }) {
   useEffect(() => {
     const user = getStoredUser();
     if (!user || (user.role !== 'admin' && user.role !== 'officer')) {
-      router.replace('/admin/login');
+      router.replace('/admin-login');
     }
   }, []);
 
