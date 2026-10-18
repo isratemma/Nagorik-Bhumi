@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const API = 'http://localhost:5000/api';
 
@@ -19,6 +20,7 @@ const typeIcon = { Deed:'📄', Survey:'🗺️', Identity:'🪪', Tax:'🧾', I
 const docTypes = ['Deed','Survey','Identity','Tax','Inheritance','Other'];
 
 export default function DocumentsPage() {
+  const { t } = useLanguage();
   const [docs,     setDocs]     = useState([]);
   const [loading,  setLoading]  = useState(true);
   const [search,   setSearch]   = useState('');
@@ -139,8 +141,8 @@ export default function DocumentsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">Documents</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Upload and manage all your land documents</p>
+          <h1 className="text-xl font-bold text-gray-800">{t.documents}</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{t.docSubtitle}</p>
         </div>
         <button onClick={() => fileRef.current?.click()}
           className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
@@ -174,9 +176,9 @@ export default function DocumentsPage() {
           ${dragging ? 'border-brand bg-brand-light/50' : 'border-gray-200 bg-white hover:border-brand/40 hover:bg-brand-light/20'}`}>
         <svg className="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
         <p className="text-sm text-gray-500 font-medium">
-          Drag & drop files here, or <span className="text-brand hover:underline">browse</span>
+          {t.dragDrop} <span className="text-brand hover:underline">{t.browse}</span>
         </p>
-        <p className="text-xs text-gray-400 mt-1">Supported: PDF, JPG, PNG — max 10 MB</p>
+        <p className="text-xs text-gray-400 mt-1">{t.maxSize}</p>
       </div>
 
       {/* Search + filters */}
@@ -218,11 +220,11 @@ export default function DocumentsPage() {
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
             <svg className="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
           </div>
-          <h3 className="font-semibold text-gray-600 mb-1">No documents found</h3>
-          <p className="text-sm text-gray-400 mb-4">Upload your first document using the button above.</p>
+          <h3 className="font-semibold text-gray-600 mb-1">{t.noDocsFound}</h3>
+          <p className="text-sm text-gray-400 mb-4">{t.uploadFirst}</p>
           <button onClick={() => fileRef.current?.click()}
             className="bg-brand text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-brand-dark transition-colors">
-            Upload Document
+            {t.uploadDocument}
           </button>
         </div>
       ) : (

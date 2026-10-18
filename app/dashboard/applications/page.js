@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const applications = [
   { id:'APP-2024-001', type:'Land Mutation',      land:'Residential Land – Savar, Dhaka',    submitted:'10 Jan 2024', updated:'12 Jan 2024', status:'Approved' },
@@ -16,6 +17,7 @@ const statusStyle = { Approved:'bg-green-100 text-green-700', Pending:'bg-yellow
 const statusIcon  = { Approved:'✓', Pending:'⏳', 'In Review':'🔍', Rejected:'✕' };
 
 export default function ApplicationsPage() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('All');
   const [selected, setSelected] = useState(null); // for detail modal
   const filtered = applications.filter(a => filter === 'All' || a.status === filter);
@@ -24,13 +26,13 @@ export default function ApplicationsPage() {
     <div className="p-6 bg-gray-50 min-h-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">My Applications</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Track the status of all your submitted applications</p>
+          <h1 className="text-xl font-bold text-gray-800">{t.myApplications}</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{t.appSubtitle}</p>
         </div>
         <Link href="/dashboard/applications/new"
           className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
-          New Application
+            {t.newApplication}
         </Link>
       </div>
 

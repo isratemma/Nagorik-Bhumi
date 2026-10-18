@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const API = 'http://localhost:5000/api';
 
@@ -26,6 +27,7 @@ function SavedMsg({ show }) {
 }
 
 export default function SettingsPage() {
+  const { t } = useLanguage();
   const photoRef = useRef(null);
   const [avatar,  setAvatar]  = useState(null);
   const [profile, setProfile] = useState({
@@ -112,8 +114,8 @@ export default function SettingsPage() {
   return (
     <div className="p-6 bg-gray-50 min-h-full">
       <div className="mb-6">
-        <h1 className="text-xl font-bold text-gray-800">Settings</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Manage your account preferences and profile</p>
+        <h1 className="text-xl font-bold text-gray-800">{t.settingsTitle}</h1>
+        <p className="text-sm text-gray-500 mt-0.5">{t.settingsSubtitle}</p>
       </div>
 
       <div className="max-w-2xl space-y-6">
@@ -122,7 +124,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h2 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <svg className="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-            Profile Information
+            {t.profileInfo}
           </h2>
 
           {/* Avatar */}
@@ -145,8 +147,7 @@ export default function SettingsPage() {
               <p className="font-semibold text-gray-800">{profile.name}</p>
               <p className="text-xs text-gray-500">Landowner · NID verified</p>
               <button type="button" onClick={() => photoRef.current?.click()}
-                className="text-xs text-brand font-medium mt-1 hover:underline">
-                Change Photo
+                className="text-xs text-brand font-medium mt-1 hover:underline">{t.changePhoto}
               </button>
             </div>
             <input ref={photoRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoChange}/>

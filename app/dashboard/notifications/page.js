@@ -1,4 +1,5 @@
 'use client';
+import { useLanguage } from '@/context/LanguageContext';
 import { useState } from 'react';
 
 const allNotifications = [
@@ -25,6 +26,7 @@ const typeIcon = {
 };
 
 export default function NotificationsPage() {
+  const { t } = useLanguage();
   const [notifications, setNotifications] = useState(allNotifications);
   const [filter, setFilter] = useState('All');
 
@@ -39,12 +41,12 @@ export default function NotificationsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            Notifications
+            {t.notifications}
             {unreadCount > 0 && <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{unreadCount}</span>}
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">Stay updated with your land records and applications</p>
+          <p className="text-sm text-gray-500 mt-0.5">{t.notifSubtitle}</p>
         </div>
-        <button onClick={markAllRead} className="text-sm text-brand font-medium hover:underline">Mark all as read</button>
+        <button onClick={markAllRead} className="text-sm text-brand font-medium hover:underline">{t.markAllRead}</button>
       </div>
 
       <div className="flex gap-2 mb-4">

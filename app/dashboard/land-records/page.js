@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const statusBadgeBg = {
   Verified: 'bg-green-500',
@@ -19,6 +20,7 @@ const statusLabel = {
 
 function LandRecordsList() {
   const params     = useSearchParams();
+  const { t }      = useLanguage();
   const [records,  setRecords]  = useState([]);
   const [loading,  setLoading]  = useState(true);
   const [search,   setSearch]   = useState('');
@@ -73,13 +75,13 @@ function LandRecordsList() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">My Land Records</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Manage and view all your registered land properties</p>
+          <h1 className="text-xl font-bold text-gray-800">{t.nav_landRecords}</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{t.adjustFilter}</p>
         </div>
         <Link href="/dashboard/land-records/new"
           className="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
-          Add New Record
+          {t.addNewRecord}
         </Link>
       </div>
 
@@ -176,12 +178,12 @@ function LandRecordsList() {
                   <Link href={`/dashboard/land-records/edit?id=${r._id}`}
                     className="flex-1 text-xs text-brand font-medium border border-brand/20 rounded-lg py-2 hover:bg-brand-light transition-colors flex items-center justify-center gap-1">
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    Edit
+                  {t.editRecord}
                   </Link>
                   <button onClick={() => setDeleting(r)}
                     className="flex-1 text-xs text-red-600 font-medium border border-red-200 rounded-lg py-2 hover:bg-red-50 transition-colors flex items-center justify-center gap-1">
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    Delete
+                    {t.deleteRecord}
                   </button>
                 </div>
               </div>
@@ -264,19 +266,19 @@ function LandRecordsList() {
             <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </div>
-            <h2 className="font-bold text-gray-800 text-lg text-center mb-1">Delete Record?</h2>
-            <p className="text-sm text-gray-500 text-center mb-1">Are you sure you want to delete</p>
+            <h2 className="font-bold text-gray-800 text-lg">{t.deleteConfirm}</h2>
+            <p className="text-sm text-gray-500 text-center mb-1">{t.deleteQuestion}</p>
             <p className="text-sm font-semibold text-gray-800 text-center mb-2">"{deleting.title}"</p>
-            <p className="text-xs text-red-500 text-center mb-5">This action cannot be undone.</p>
+            <p className="text-xs text-red-500 text-center mb-5">{t.undoneWarning}</p>
             <div className="flex gap-3">
               <button onClick={() => setDeleting(null)}
                 className="flex-1 border border-gray-200 text-gray-600 font-semibold py-2.5 rounded-lg hover:bg-gray-50 transition-colors text-sm">
-                Cancel
+                {t.cancel}
               </button>
               <button onClick={() => handleDelete(deleting)}
                 className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-lg transition-colors text-sm flex items-center justify-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6"/></svg>
-                Yes, Delete
+                {t.yesDelete}
               </button>
             </div>
           </div>

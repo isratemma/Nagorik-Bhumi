@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const divisions = ['Dhaka','Chattogram','Rajshahi','Khulna','Barishal','Sylhet','Rangpur','Mymensingh'];
 const labelCls  = 'block text-sm font-medium text-gray-700 mb-1.5';

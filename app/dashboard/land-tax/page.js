@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 const taxes = [
   { land:'Residential Land', location:'Savar, Dhaka',       id:'LN-00123', size:'5.00 Katha',  amount:4500, due:'31 Dec 2024', status:'Unpaid', year:'2024' },
@@ -13,6 +14,7 @@ const taxes = [
 const statusStyle = { Unpaid:'bg-red-100 text-red-600', Paid:'bg-green-100 text-green-700', Overdue:'bg-orange-100 text-orange-600' };
 
 export default function LandTaxPage() {
+  const { t } = useLanguage();
   const [selected, setSelected]   = useState([]);
   const [paying, setPaying]       = useState(null); // index being paid
   const [localTaxes, setLocalTaxes] = useState(taxes);
@@ -42,25 +44,25 @@ export default function LandTaxPage() {
     <div className="p-6 bg-gray-50 min-h-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">Land Tax</h1>
-          <p className="text-sm text-gray-500 mt-0.5">View and pay your land tax dues</p>
+          <h1 className="text-xl font-bold text-gray-800">{t.landTax}</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{t.taxSubtitle}</p>
         </div>
       </div>
 
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Total Due</p>
+          <p className="text-xs text-gray-500">{t.totalDue}</p>
           <p className="text-2xl font-bold text-red-600 mt-1">৳ {totalDue.toLocaleString()}</p>
           <p className="text-xs text-gray-400 mt-1">{localTaxes.filter(t=>t.status==='Unpaid').length} properties unpaid</p>
         </div>
         <div className="bg-green-50 border border-green-100 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Total Paid</p>
+          <p className="text-xs text-gray-500">{t.totalPaid}</p>
           <p className="text-2xl font-bold text-green-600 mt-1">৳ {localTaxes.filter(t=>t.status==='Paid').reduce((s,t)=>s+t.amount,0).toLocaleString()}</p>
           <p className="text-xs text-gray-400 mt-1">{localTaxes.filter(t=>t.status==='Paid').length} properties cleared</p>
         </div>
         <div className="bg-brand-light border border-brand/10 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Next Due Date</p>
+          <p className="text-xs text-gray-500">{t.nextDueDate}</p>
           <p className="text-2xl font-bold text-brand mt-1">31 Dec 2024</p>
           <p className="text-xs text-gray-400 mt-1">Annual land tax deadline</p>
         </div>
@@ -68,7 +70,7 @@ export default function LandTaxPage() {
 
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-800 text-sm">Tax Records</h2>
+          <h2 className="font-semibold text-gray-800 text-sm">{t.taxRecords}</h2>
           {selected.length > 0 && (
             <button
               onClick={() => payTax(selected)}
