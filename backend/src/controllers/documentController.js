@@ -67,7 +67,7 @@ exports.verifyDocument = async (req, res, next) => {
 
     doc.status = status;
     if (status === 'Verified') {
-      doc.verifiedBy = req.user._id;
+      doc.verifiedBy = req.user?._id || null;
       doc.verifiedAt = new Date();
     }
     if (status === 'Rejected') doc.rejectionReason = rejectionReason;

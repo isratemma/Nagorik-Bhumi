@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const { protect, authorize } = require('../middleware/auth');
 const {
   getLandRecords,
   getLandRecordById,
@@ -10,14 +9,12 @@ const {
   deleteLandRecord,
 } = require('../controllers/landRecordController');
 
-// Public routes — no token needed (frontend not yet connected to auth)
-router.get('/',    getLandRecords);
-router.get('/:id', getLandRecordById);
-router.post('/',   createLandRecord);
-router.put('/:id', updateLandRecord);
-
-// Admin/officer only
-router.patch('/:id/status', protect, authorize('admin', 'officer'), updateStatus);
-router.delete('/:id',       deleteLandRecord);   // public for now
+// All public for now — add auth after frontend JWT is wired
+router.get('/',             getLandRecords);
+router.get('/:id',          getLandRecordById);
+router.post('/',            createLandRecord);
+router.put('/:id',          updateLandRecord);
+router.patch('/:id/status', updateStatus);     // approve / reject
+router.delete('/:id',       deleteLandRecord);
 
 module.exports = router;

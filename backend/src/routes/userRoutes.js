@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const { protect, authorize } = require('../middleware/auth');
 const {
   getAllUsers,
   getUserById,
@@ -9,13 +8,11 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-// Public read (no token for now — protect after auth is wired)
-router.get('/',    getAllUsers);
-router.get('/:id', getUserById);
-
-// Protected write
-router.put('/:id',          protect, authorize('admin'), updateUser);
-router.patch('/:id/status', protect, authorize('admin'), toggleUserStatus);
-router.delete('/:id',       protect, authorize('admin'), deleteUser);
+// All public for now — add auth after frontend JWT is wired
+router.get('/',             getAllUsers);
+router.get('/:id',          getUserById);
+router.put('/:id',          updateUser);
+router.patch('/:id/status', toggleUserStatus);
+router.delete('/:id',       deleteUser);
 
 module.exports = router;

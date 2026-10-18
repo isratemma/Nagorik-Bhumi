@@ -113,7 +113,7 @@ exports.updateStatus = async (req, res, next) => {
 
     record.status = status;
     if (status === 'Verified') {
-      record.verifiedBy = req.user._id;
+      record.verifiedBy = req.user?._id || null;
       record.verifiedAt = new Date();
     }
     if (status === 'Rejected') record.rejectionReason = rejectionReason;

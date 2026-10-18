@@ -78,7 +78,7 @@ exports.reviewApplication = async (req, res, next) => {
     if (!app) return res.status(404).json({ success: false, message: 'Application not found' });
 
     app.status       = status;
-    app.reviewedBy   = req.user._id;
+    app.reviewedBy   = req.user?._id || null;
     app.reviewedAt   = new Date();
     if (rejectionReason) app.rejectionReason = rejectionReason;
     if (notes) app.notes = notes;
