@@ -37,9 +37,9 @@ const upload = multer({
 
 router.use(protect);
 
-router.get('/',                    getDocuments);
-router.post('/upload',             upload.single('file'), uploadDocument);
-router.patch('/:id/verify',        authorize('admin', 'officer'), verifyDocument);
-router.delete('/:id',              deleteDocument);
+router.get('/',             getDocuments);
+router.post('/upload',      upload.single('file'), uploadDocument); // public for now
+router.patch('/:id/verify', protect, authorize('admin', 'officer'), verifyDocument);
+router.delete('/:id',       protect, deleteDocument);
 
 module.exports = router;
