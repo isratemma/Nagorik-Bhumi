@@ -4,18 +4,32 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext(null);
 
-export function UserProvider({ children }) {
-  const [user,  setUser]  = useState(null);
-  const [token, setToken] = useState(null);
+// Safe localStorage read (returns null on SSR or error)
+function readStorage(key) {
+  if (typeof window === 'undefined') return null;
+  try { return localStorage.getItem(key); } catch { return null; }
+}
 
-  // Load from localStorage on mount
+export function UserProvider({ children }) {
+  // Initialize directly from localStorage — no delay, no flash
+  const [user, setUser] = useState(() => {
+    const stored = readStorage('nb_user');
+    try { return stored ? JSON.parse(stored) : null; } catch { return null; }
+  });
+
+  const [token, setToken] = useState(() => readStorage('nb_token'));
+
+  // Re-sync if storage changes in another tab
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('nb_user');
-      const storedToken = localStorage.getItem('nb_token');
-      if (stored)      setUser(JSON.parse(stored));
-      if (storedToken) setToken(storedToken);
-    } catch {}
+    const handler = () => {
+      try {
+        const stored = readStorage('nb_user');
+        setUser(stored ? JSON.parse(stored) : null);
+        setToken(readStorage('nb_token'));
+      } catch {}
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
   }, []);
 
   const login = (userData, jwt) => {

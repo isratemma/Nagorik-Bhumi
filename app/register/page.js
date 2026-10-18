@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import { useLanguage } from '@/context/LanguageContext';
+import { useUser } from '@/context/UserContext';
 import { toast } from 'sonner';
 
 function EyeIcon() { return <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>; }
@@ -14,6 +15,7 @@ function LockIcon() { return <svg className="w-5 h-5" fill="none" viewBox="0 0 2
 export default function RegisterPage() {
   const { t } = useLanguage();
   const router = useRouter();
+  const { login } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -57,11 +59,9 @@ export default function RegisterPage() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        // Save user to localStorage
-        localStorage.setItem('nb_user',  JSON.stringify(data.user));
-        localStorage.setItem('nb_token', data.token);
+        login(data.user, data.token);  // saves to context + localStorage
         toast.success(`Welcome to Nagorik Bhumi, ${data.user.fullName}!`);
-        router.push('/dashboard');
+        router.push('/login');  // go to login after register
       } else {
         setServerError(data.message || 'Registration failed. Please try again.');
       }

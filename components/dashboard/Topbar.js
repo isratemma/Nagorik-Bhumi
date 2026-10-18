@@ -20,7 +20,11 @@ const searchLinks = [
 export default function Topbar({ onMenuToggle }) {
   const router = useRouter();
   const { t, lang, setLang } = useLanguage();
-  const { user, logout } = useUser();
+  const { user: ctxUser, logout } = useUser();
+  // Fallback to localStorage if context hasn't hydrated yet
+  const user = ctxUser || (() => {
+    try { const s = typeof window !== 'undefined' ? localStorage.getItem('nb_user') : null; return s ? JSON.parse(s) : null; } catch { return null; }
+  })();
   const [search, setSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [showUser, setShowUser] = useState(false);

@@ -40,15 +40,18 @@ export default function SettingsPage() {
     address: '',
   });
 
-  // Load logged-in user data into form
+  // Load logged-in user data into form — from context or localStorage fallback
   useEffect(() => {
-    if (user) {
+    const source = user || (() => {
+      try { const s = localStorage.getItem('nb_user'); return s ? JSON.parse(s) : null; } catch { return null; }
+    })();
+    if (source) {
       setProfile({
-        name:    user.fullName  || '',
-        email:   user.email     || '',
-        phone:   user.mobile    || '',
-        nid:     user.nid       || '',
-        address: user.address   || '',
+        name:    source.fullName || '',
+        email:   source.email    || '',
+        phone:   source.mobile   || '',
+        nid:     source.nid      || '',
+        address: source.address  || '',
       });
     }
   }, [user]);
