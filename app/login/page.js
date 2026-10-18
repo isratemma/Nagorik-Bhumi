@@ -7,9 +7,12 @@ import AuthLayout from '@/components/AuthLayout';
 import { useLanguage } from '@/context/LanguageContext';
 import { toast } from 'sonner';
 
+import { useUser } from '@/context/UserContext';
+
 export default function LoginPage() {
   const { t } = useLanguage();
   const router = useRouter();
+  const { login } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [form, setForm] = useState({ nid: '', password: '' });
@@ -32,17 +35,27 @@ export default function LoginPage() {
     setErrors({});
     setLoading(true);
     try {
-      // TODO: replace with real API call
-      await new Promise(r => setTimeout(r, 1000));
-      // Simulate: NID 1234567890 + password "password" = success
-      if (form.nid === '1234567890' && form.password === 'password') {
-        toast.success('Welcome back, Israt Jahan Ema!');
-        router.push('/dashboard');
+      const res  = await fetch('http://localhost:5000/api/auth/login', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ nid: form.nid, password: form.password }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        login(data.user, data.token);
+        toast.success(`Welcome back, ${data.user.fullName}!`);
+        // Redirect based on role
+        if (data.user.role === 'admin' || data.user.role === 'officer') {
+          router.push('/admin');
+        } else {
+          router.push('/dashboard');
+        }
       } else {
-        setServerError('Invalid NID or password. Please try again.');
+        setServerError(data.message || 'Invalid NID or password.');
       }
     } catch {
-      setServerError('Something went wrong. Please try again.');
+      setServerError('Could not connect to server. Make sure backend is running on port 5000.');
     } finally {
       setLoading(false);
     }

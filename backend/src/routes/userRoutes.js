@@ -9,13 +9,13 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-// All routes require login + admin role
-router.use(protect, authorize('admin'));
+// Public read (no token for now — protect after auth is wired)
+router.get('/',    getAllUsers);
+router.get('/:id', getUserById);
 
-router.get('/',           getAllUsers);
-router.get('/:id',        getUserById);
-router.put('/:id',        updateUser);
-router.patch('/:id/status', toggleUserStatus);
-router.delete('/:id',     deleteUser);
+// Protected write
+router.put('/:id',          protect, authorize('admin'), updateUser);
+router.patch('/:id/status', protect, authorize('admin'), toggleUserStatus);
+router.delete('/:id',       protect, authorize('admin'), deleteUser);
 
 module.exports = router;

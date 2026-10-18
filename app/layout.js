@@ -1,5 +1,6 @@
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { UserProvider } from '@/context/UserContext';
 import { Toaster } from 'sonner';
 
 export const metadata = {
@@ -20,8 +21,10 @@ export default function RootLayout({ children }) {
       </head>
       <body style={{ fontFamily: "'Inter', 'Hind Siliguri', sans-serif" }}>
         <LanguageProvider>
-          {children}
-          <Toaster position="top-right" richColors closeButton />
+          <UserProvider>
+            {children}
+            <Toaster position="top-right" richColors closeButton />
+          </UserProvider>
         </LanguageProvider>
       </body>
     </html>

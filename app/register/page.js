@@ -44,11 +44,29 @@ export default function RegisterPage() {
     setErrors({});
     setLoading(true);
     try {
-      await new Promise(r => setTimeout(r, 1200));
-      toast.success('Account created! Welcome to Nagorik Bhumi.');
-      router.push('/dashboard');
+      const res  = await fetch('http://localhost:5000/api/auth/register', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          fullName:    form.fullName,
+          nid:         form.nid,
+          dateOfBirth: form.dob,
+          mobile:      form.mobile,
+          password:    form.password,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        // Save user to localStorage
+        localStorage.setItem('nb_user',  JSON.stringify(data.user));
+        localStorage.setItem('nb_token', data.token);
+        toast.success(`Welcome to Nagorik Bhumi, ${data.user.fullName}!`);
+        router.push('/dashboard');
+      } else {
+        setServerError(data.message || 'Registration failed. Please try again.');
+      }
     } catch {
-      setServerError('Registration failed. Please try again.');
+      setServerError('Could not connect to server. Make sure backend is running on port 5000.');
     } finally {
       setLoading(false);
     }
