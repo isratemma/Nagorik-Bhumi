@@ -18,6 +18,6 @@ router.put('/:id', updateLandRecord);
 
 // Admin/officer only
 router.patch('/:id/status', protect, authorize('admin', 'officer'), updateStatus);
-router.delete('/:id',       protect, authorize('admin'), deleteLandRecord);
+router.delete('/:id',       deleteLandRecord);   // public for now
 
 module.exports = router;

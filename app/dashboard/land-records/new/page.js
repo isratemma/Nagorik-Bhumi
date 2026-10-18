@@ -107,7 +107,7 @@ export default function NewLandRecordPage() {
       const data = await res.json();
       if (res.ok) {
         toast.success('Land record added successfully!');
-        router.push('/dashboard/land-records');
+        router.push('/dashboard/land-records?refresh=1');
       } else {
         toast.error(data.message || 'Failed to add record');
       }
