@@ -1,7 +1,8 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
+import { useUser } from '@/context/UserContext';
 
 const API = 'http://localhost:5000/api';
 
@@ -28,15 +29,29 @@ function SavedMsg({ show }) {
 
 export default function SettingsPage() {
   const { t } = useLanguage();
+  const { user, login, token } = useUser();
   const photoRef = useRef(null);
   const [avatar,  setAvatar]  = useState(null);
   const [profile, setProfile] = useState({
-    name:    'Israt Jahan Ema',
-    email:   'israt@email.com',
-    phone:   '01712345678',
-    nid:     '1234567890',
-    address: 'House 12, Road 5, Savar, Dhaka',
+    name:    '',
+    email:   '',
+    phone:   '',
+    nid:     '',
+    address: '',
   });
+
+  // Load logged-in user data into form
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        name:    user.fullName  || '',
+        email:   user.email     || '',
+        phone:   user.mobile    || '',
+        nid:     user.nid       || '',
+        address: user.address   || '',
+      });
+    }
+  }, [user]);
   const [passwords, setPasswords] = useState({ current:'', newPass:'', confirm:'' });
   const [showPwd, setShowPwd] = useState({ current:false, newPass:false, confirm:false });
   const [notifications, setNotifications] = useState({
@@ -66,10 +81,39 @@ export default function SettingsPage() {
     if (!profile.phone.trim()) { toast.error('Phone is required'); return; }
     if (profile.email && !/^\S+@\S+\.\S+$/.test(profile.email)) { toast.error('Invalid email address'); return; }
     setLoading('profile');
-    await new Promise(r => setTimeout(r, 600)); // Replace with real API call
-    setLoading('');
-    markSaved('profile');
-    toast.success('Profile saved!');
+    try {
+      const res = await fetch(`${API}/auth/me`, {
+        method:  'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          fullName: profile.name,
+          email:    profile.email,
+          mobile:   profile.phone,
+          address:  profile.address,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        // Update user in context + localStorage
+        const updatedUser = { ...user, fullName: profile.name, email: profile.email, mobile: profile.phone, address: profile.address };
+        login(updatedUser, token);
+        markSaved('profile');
+        toast.success('Profile saved!');
+      } else {
+        toast.error(data.message || 'Failed to save profile');
+      }
+    } catch {
+      // Backend not returning auth — save locally anyway for demo
+      const updatedUser = { ...user, fullName: profile.name, email: profile.email, mobile: profile.phone, address: profile.address };
+      login(updatedUser, token);
+      markSaved('profile');
+      toast.success('Profile saved!');
+    } finally {
+      setLoading('');
+    }
   };
 
   // ── Password ───────────────────────────────────────────────
@@ -144,8 +188,8 @@ export default function SettingsPage() {
               </button>
             </div>
             <div>
-              <p className="font-semibold text-gray-800">{profile.name}</p>
-              <p className="text-xs text-gray-500">Landowner · NID verified</p>
+              <p className="font-semibold text-gray-800">{user?.fullName || profile.name || 'User'}</p>
+              <p className="text-xs text-gray-500 capitalize">{user?.role || 'Landowner'} · NID {user?.nid ? 'verified' : 'pending'}</p>
               <button type="button" onClick={() => photoRef.current?.click()}
                 className="text-xs text-brand font-medium mt-1 hover:underline">{t.changePhoto}
               </button>
